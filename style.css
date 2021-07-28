@@ -1,4 +1,5 @@
 @import url("https://use.typekit.net/jmk3xov.css");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Press+Start+2P&family=Righteous&family=Roboto+Slab&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 canvas {
   position: fixed;
@@ -8,9 +9,11 @@ canvas {
 
 :root {
   --dark-bg: rgba(15, 15, 15, 0.95);
+  --light-bg: rgba(255, 255, 255, 0.671);
   --spacing: 350px;
+  --doublespacing: 700px;
 
-  font-family: brandon-grotesque, sans-serif;
+  font-family: "Roboto Slab", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -32,9 +35,10 @@ h1,
 h2,
 h3,
 blockquote {
-  font-family: elevon, sans-serif;
-  font-weight: 700;
+  font-family: "Space Grotesk", cursive;
+  font-weight: 100;
   font-style: normal;
+  margin-top: 0;
 }
 
 canvas {
@@ -48,7 +52,7 @@ header {
   grid-column: 7 / span 5;
   font-size: 2.5rem;
   padding: 2rem;
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--doublespacing);
 }
 
 section {

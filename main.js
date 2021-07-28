@@ -1,6 +1,5 @@
 import "./style.css";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // Camera and Render
@@ -31,7 +30,7 @@ const tmaterial = new THREE.MeshStandardMaterial({
 
 const torus = new THREE.Mesh(tgeometry, tmaterial);
 
-const t2geometry = new THREE.TorusGeometry(10, 0.11, 3, 100);
+const t2geometry = new THREE.TorusGeometry(7, 0.11, 3, 100);
 
 const t2material = new THREE.MeshStandardMaterial({
   color: 0xff7777,
@@ -79,10 +78,12 @@ var monitor;
 loader.load(
   "models/monitor.glb",
   function (glmonitor) {
+    const t = document.body.getBoundingClientRect().top;
     monitor = glmonitor;
-    monitor.scene.position.x = 0.8;
-    monitor.scene.position.z = 10.9;
+    monitor.scene.position.x = 0.9;
+    monitor.scene.position.z = 8;
     monitor.scene.position.y = 0.1;
+    monitor.scene.rotation.y = (t / 893) * 2 - 1;
     scene.add(monitor.scene);
   },
   undefined,
@@ -91,16 +92,19 @@ loader.load(
   }
 );
 // Background
-const spaceTexture = new THREE.TextureLoader().load("space.jpg");
+const spaceTexture = new THREE.TextureLoader().load("grid.jpg");
 scene.background = spaceTexture;
 
 // Avatar
 const meTexture = new THREE.TextureLoader().load("me.png");
 const me = new THREE.Mesh(
-  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.BoxGeometry(0.2, 0.2, 0.2),
   new THREE.MeshBasicMaterial({ map: meTexture })
 );
-// scene.add(me);
+me.position.set(-0.2, 0.2, -1);
+me.rotation.set(0.1, 0.1, 0);
+
+scene.add(me);
 
 // Moon
 const moonTexture = new THREE.TextureLoader().load("moon.jpg");
@@ -117,15 +121,20 @@ scene.add(moon);
 
 // Stars
 function addStar() {
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  let size = Math.random();
+  const geometry = new THREE.BoxGeometry(size, size, size);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    wireframe: true,
+  });
   const star = new THREE.Mesh(geometry, material);
 
-  const [x, y, z] = Array(3)
+  const [x, y, z, r] = Array(4)
     .fill()
     .map(() => THREE.MathUtils.randFloatSpread(150));
 
   star.position.set(x, y, z);
+  star.rotation.set(r, r, r);
   scene.add(star);
 }
 
@@ -144,6 +153,9 @@ function moveCamera() {
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
   camera.position.y = t * -0.0002;
+  if (monitor) {
+    monitor.scene.rotation.y = (t / 893) * 2 - 1;
+  }
 }
 document.body.onscroll = moveCamera;
 moveCamera();
@@ -152,14 +164,15 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
   // this rotation can probably be some kind of function
-  torus.rotation.x += 0.014;
-  torus.rotation.y += 0.01;
-  torus.rotation.z += 0.011;
-  torus2.rotation.x -= 0.01;
-  torus2.rotation.y -= 0.013;
-  torus2.rotation.z -= 0.017;
-  monitor.scene.rotation.y -= 0.01;
+  torus.rotation.x += 0.0014;
+  torus.rotation.y += 0.001;
+  torus.rotation.z += 0.0011;
+  torus2.rotation.x -= 0.001;
+  torus2.rotation.y -= 0.0013;
+  torus2.rotation.z -= 0.0017;
+  // monitor.scene.rotation.y -= 0.01;
   renderer.render(scene, camera);
+  // console.log(document.body.getBoundingClientRect().top);
 }
 
 animate();
