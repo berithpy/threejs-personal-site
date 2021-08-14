@@ -51,11 +51,11 @@ const ambientLight = new THREE.AmbientLight(0xaaaaaa);
 scene.add(pointLight, ambientLight, aboutPointLight, experiencePointLight);
 
 // point light helper
-const sphereSize = 1;
-const lightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
-const lightHelper2 = new THREE.PointLightHelper(experiencePointLight, sphereSize);
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper, lightHelper2);
+// const sphereSize = 1;
+// const lightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
+// const lightHelper2 = new THREE.PointLightHelper(experiencePointLight, sphereSize);
+// const gridHelper = new THREE.GridHelper(200, 50);
+// scene.add(lightHelper, gridHelper, lightHelper2);
 
 // const controls = new OrbitControls(camera, renderer.domElement);
 // Loader
@@ -130,20 +130,6 @@ const me = new THREE.Mesh(
 me.position.set(-0.2, 0.2, -1);
 
 scene.add(me);
-
-// // Moon
-// const moonTexture = new THREE.TextureLoader().load("moon.jpg");
-// const moonNormal = new THREE.TextureLoader().load("normal.jpg");
-
-// const moon = new THREE.Mesh(
-//   new THREE.SphereGeometry(3, 32, 32),
-//   new THREE.MeshStandardMaterial({ map: moonTexture, normalMap: moonNormal })
-// );
-// moon.position.z = 30;
-// moon.position.x = -10;
-
-// scene.add(moon);
-
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
@@ -308,3 +294,4 @@ function animate() {
     speed = speed / 1.01
   }
 }
+
