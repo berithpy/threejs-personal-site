@@ -40,7 +40,7 @@ blockquote {
   font-style: normal;
   margin-top: 0;
 }
-
+a{color:white;}
 canvas {
   position: fixed;
   top: 0;
